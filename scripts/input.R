@@ -10,7 +10,8 @@ names(df) <- c("Well", "Treatment", "Type", "Absorbance")
 blank.raw <- read_excel("dataset/MTT-29-July-20-graph.xls", 
                        range = "O1:P5")
 blank.raw <- data.table(blank.raw)
-df[, .(Blank = mean(Absorbance) - mean(blank.raw$`Absorbance 570/40 (A)`)), by = .(Treatment, Type)]
+# df[, c("AmB") := .(AmB = mean(Absorbance) - mean(blank.raw$`Absorbance 570/40 (A)`)), by = .(Treatment, Type)] # for testing only
+df[, c("AmB") := .(AmB = Absorbance - mean(blank.raw$`Absorbance 570/40 (A)`)), by = .(Treatment, Type)]
 
 # split type column
 df[, c("CLine", "Strain") := tstrsplit(Type, "-", fixed = TRUE)]
