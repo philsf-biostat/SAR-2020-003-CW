@@ -18,9 +18,6 @@ df[, c("AmB") := .(AmB = Absorbance - mean(blank.raw$`Absorbance 570/40 (A)`)), 
 # split type column
 df[, c("CLine", "Strain") := tstrsplit(Type, "-", fixed = TRUE)]
 
-# filter only t98 cell line
-df <- df[CLine == "T98G"]
-
 df$Well <- factor(df$Well)
 
 df$Treatment <- factor(df$Treatment)
